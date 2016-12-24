@@ -10,3 +10,8 @@ class Character(models.Model):
 
     def __str__(self):
         return '%s - %s' % (self.name, self.realm)
+
+
+class Snapshot(models.Model):
+    character = models.ForeignKey(Character)
+    item_level = models.IntegerField()

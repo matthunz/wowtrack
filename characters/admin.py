@@ -1,4 +1,13 @@
 from django.contrib import admin
 from . import models
 
-admin.site.register(models.Character)
+
+class SnapshotInline(admin.StackedInline):
+    model = models.Snapshot
+
+
+class CharacterAdmin(admin.ModelAdmin):
+    inlines = [SnapshotInline]
+
+
+admin.site.register(models.Character, CharacterAdmin)

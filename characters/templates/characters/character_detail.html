@@ -1,1 +1,6 @@
-{{ object.name }}
+{{ object.name }} - {{ object.realm }}
+<hr>
+{% for snapshot in object.snapshot_set.all %}
+    {{ snapshot.item_level }}
+    <br>
+{% endfor %}

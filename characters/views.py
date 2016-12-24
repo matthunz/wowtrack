@@ -11,12 +11,19 @@ class CharacterDetailView(generic.DetailView):
         try:
             return self.model.objects.get(name__iexact=self.kwargs['name'], realm__iexact=self.kwargs['realm'])
         except self.model.DoesNotExist:
-            request = requests.get('https://us.api.battle.net/wow/character/%s/%s?locale=en_US&apikey=%s' % (
-                self.kwargs['realm'], self.kwargs['name'], 'x95frpjm3v3zdrnj3rbzr83e9b348hj9'
-            ))
+            request = requests.get(
+                'https://us.api.battle.net/wow/character/%s/%s?locale=en_US&fields=items&apikey=%s' % (
+                    self.kwargs['realm'], self.kwargs['name'], 'x95frpjm3v3zdrnj3rbzr83e9b348hj9'
+                ))
 
             if request.status_code != 200:
                 raise Http404
 
             json = request.json()
-            return self.model.objects.create(name=json['name'], realm=json['realm'])
+            character = self.model.objects.create(
+                name=self.kwargs['name'],
+                realm=self.kwargs['realm']
+            )
+            models.Snapshot.objects.create(character=character, item_level=json['items']['averageItemLevel'])
+
+            return character
