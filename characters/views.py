@@ -1,10 +1,11 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import Http404
 from django.views import generic
 from . import models
 import requests
 
 
-class CharacterDetailView(generic.DetailView):
+class CharacterDetailView(LoginRequiredMixin, generic.DetailView):
     model = models.Character
 
     def get_object(self, queryset=None):

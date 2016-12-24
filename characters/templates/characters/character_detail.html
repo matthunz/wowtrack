@@ -1,6 +1,12 @@
-{{ object.name }} - {{ object.realm }}
-<hr>
-{% for snapshot in object.snapshot_set.all %}
-    {{ snapshot.item_level }}
-    <br>
-{% endfor %}
+{% extends 'layout.html' %}
+
+{% block title %}{{ object.name }} - {{ object.realm }}{% endblock %}
+
+{% block content %}
+    {{ object.name }} - {{ object.realm }}
+    <hr>
+    {% for snapshot in object.snapshot_set.all %}
+        {{ snapshot.item_level }}
+        <br>
+    {% endfor %}
+{% endblock %}

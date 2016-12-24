@@ -5,6 +5,11 @@
     <title>{% block title %}{% endblock %} | WoWTrack</title>
 </head>
 <body>
+    <header id="header">
+        <nav>
+            <a href="{% url 'accounts:login' %}">Login</a>
+        </nav>
+    </header>
     {% block content %}{% endblock %}
 </body>
 </html>
