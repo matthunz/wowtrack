@@ -1,0 +1,9 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    {% for character in user.character_set.all %}
+        <a class="character" href="/characters/{{ character.realm }}/{{ character.name }}">
+            {{ character.name }}
+        </a>
+    {% endfor %}
+{% endblock %}

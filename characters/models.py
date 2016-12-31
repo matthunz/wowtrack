@@ -1,9 +1,11 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 
 class Character(models.Model):
     name = models.CharField(max_length=12)
     realm = models.CharField(max_length=30)
+    user = models.ForeignKey(User)
 
     class Meta:
         unique_together = ('name', 'realm')
